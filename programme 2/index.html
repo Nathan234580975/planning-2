@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révélation Jeunes Talents Camerounais - Programme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #d4af37; /* Or cinéma */
+            --bg-dark: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-main: #f5f5f5;
+            --text-muted: #aaaaaa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            background-image: radial-gradient(circle at 50% 0%, #2a2a2a 0%, #0a0a0a 70%);
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 2rem 1.5rem; /* Réduire le padding supérieur car le logo est là */
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .logo-container {
+            margin-bottom: 1rem;
+        }
+
+        .logo-img {
+            max-width: 120px; /* Taille appropriée, un peu plus petit pour le header */
+            height: auto;
+            border-radius: 50%; /* Forcer la forme circulaire, même si l'image est un carré avec un cercle */
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3); /* Ajout d'une ombre dorée pour l'intégration */
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            color: var(--primary-color);
+            font-size: 2.2rem; /* Réduire un peu la taille du titre car le logo est présent */
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            font-weight: 300;
+            font-size: 1.1rem; /* Réduire un peu la taille du sous-titre */
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+        }
+
+        .filter-btn {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--primary-color);
+            padding: 0.8rem 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            font-weight: 600;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .schedule-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .schedule-section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 2rem 0 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+        }
+
+        .movie-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #333;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .movie-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .movie-card:hover {
+            transform: translateX(5px);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+
+        .movie-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .movie-info {
+            flex: 1;
+        }
+
+        .movie-time {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        .movie-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+        }
+
+        .movie-meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .movie-duration {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            margin-left: 1rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .movie-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .movie-duration {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <!-- Remplacez le chemin par le chemin réel vers votre fichier logo -->
+            <img src="./WhatsApp Image 2026-05-09 at 10.42.25.jpeg" alt="Logo CINÉ-PEOPLE'S" class="logo-img">
+        </div>
+        <h1>Révélation Jeunes Talents Camerounais et cours métrages</h1>
+        <h2>Programme Officiel</h2>
+    </header>
+
+    <div class="controls">
+        <button class="filter-btn active" data-target="all">Tout le programme</button>
+        <button class="filter-btn" data-target="eden">Cinéma Eden (10h-15h)</button>
+        <button class="filter-btn" data-target="culture">Maison de la Culture (15h-19h30)</button>
+        <button class="filter-btn" data-target="plein-air">Plein Air (19h30-21h30)</button>
+    </div>
+
+    <main>
+        <!-- CINÉMA EDEN -->
+        <div class="schedule-section active" id="eden">
+            <h3 class="section-title">📍 Cinéma Eden | 10h00 - 15h00</h3>
+            
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">10:00</span>
+                    <div class="movie-title">Autumn the Age</div>
+                    <div class="movie-meta">Réalisé par Blal Touil • Maroc • 2024</div>
+                </div>
+                <div class="movie-duration">73 min</div>
+            </div>
+            
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">11:15</span>
+                    <div class="movie-title">Les Os</div>
+                    <div class="movie-meta">Réalisé par Meric Zongo • Cameroun • 2022</div>
+                </div>
+                <div class="movie-duration">34 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">11:50</span>
+                    <div class="movie-title">Dévalués</div>
+                    <div class="movie-meta">Réalisé par Talla Alain • Cameroun • 2024</div>
+                </div>
+                <div class="movie-duration">30 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">12:20</span>
+                    <div class="movie-title">King Bell</div>
+                    <div class="movie-meta">Réalisé par Gabriel Ngassa • Cameroun • 2026</div>
+                </div>
+                <div class="movie-duration">26 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">12:50</span>
+                    <div class="movie-title">Uriel l'adolescent neurodivergent...</div>
+                    <div class="movie-meta">Réalisé par Etienne Talla • Cameroun • 2026</div>
+                </div>
+                <div class="movie-duration">24 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">13:15</span>
+                    <div class="movie-title">Non Retour</div>
+                    <div class="movie-meta">Réalisé par Fabrice Biguezoton • Cameroun • 2025</div>
+                </div>
+                <div class="movie-duration">21 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">13:40</span>
+                    <div class="movie-title">The Chamber</div>
+                    <div class="movie-meta">Réalisé par Fidae Sbaai • Maroc • 2024</div>
+                </div>
+                <div class="movie-duration">20 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">14:00</span>
+                    <div class="movie-title">Cycle of Pain</div>
+                    <div class="movie-meta">Réalisé par Awonkeh Alfredo Kftiwa • Cameroun • 2025</div>
+                </div>
+                <div class="movie-duration">18 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">14:20</span>
+                    <div class="movie-title">Dreaming</div>
+                    <div class="movie-meta">Réalisé par Hossam Waleed • Egypte • 2025</div>
+                </div>
+                <div class="movie-duration">18 min</div>
+            </div>
+        </div>
+
+        <!-- MAISON DE LA CULTURE -->
+        <div class="schedule-section active" id="culture">
+            <h3 class="section-title">📍 Maison de la Culture, Bali | 15h00 - 19h30</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1rem; font-style: italic;">Sélection thématique spéciale</p>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">15:00</span>
+                    <div class="movie-title">Santé et Savoir-Faire Local</div>
+                    <div class="movie-meta">Réalisé par Maloum Tchikilabi • Cameroun • 2026</div>
+                </div>
+                <div class="movie-duration">26 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">15:30</span>
+                    <div class="movie-title">Le Mythe de Mapout</div>
+                    <div class="movie-meta">Réalisé par Mbog-Len Mapout • Cameroun • 2014</div>
+                </div>
+                <div class="movie-duration">52 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">16:25</span>
+                    <div class="movie-title">Vestige du Passé</div>
+                    <div class="movie-meta">Réalisé par Fara Konate • Sénégal • 2026</div>
+                </div>
+                <div class="movie-duration">78 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">17:45</span>
+                    <div class="movie-title">Rituel des Jumeaux</div>
+                    <div class="movie-meta">Réalisé par Laure Kamga • Cameroun • 2024</div>
+                </div>
+                <div class="movie-duration">80 min</div>
+            </div>
+        </div>
+
+        <!-- PLEIN AIR -->
+        <div class="schedule-section active" id="plein-air">
+            <h3 class="section-title">📍 En Plein Air, Bali | 19h30 - 21h30</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1rem; font-style: italic;">Nuit du court métrage</p>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">19:30</span>
+                    <div class="movie-title">Moi L'Étrange</div>
+                    <div class="movie-meta">Réalisé par Nkoke Stephane • Cameroun • 2026</div>
+                </div>
+                <div class="movie-duration">6 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">19:36</span>
+                    <div class="movie-title">Indélébile</div>
+                    <div class="movie-meta">Réalisé par Ruth Silabing • Cameroun • 2024</div>
+                </div>
+                <div class="movie-duration">10 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">19:46</span>
+                    <div class="movie-title">Code Vert</div>
+                    <div class="movie-meta">Réalisé par Tamkou Moifo • Cameroun • 2025</div>
+                </div>
+                <div class="movie-duration">10 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">19:56</span>
+                    <div class="movie-title">Illusion du Clic</div>
+                    <div class="movie-meta">Réalisé par Tchoffo Sah Arnaud • Cameroun • 2025</div>
+                </div>
+                <div class="movie-duration">11 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">20:07</span>
+                    <div class="movie-title">Empreinte</div>
+                    <div class="movie-meta">Réalisé par Yves Bertin Djimé • Cameroun • 2026</div>
+                </div>
+                <div class="movie-duration">6 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">20:13</span>
+                    <div class="movie-title">Pourquoi</div>
+                    <div class="movie-meta">Réalisé par Gael Tsaba • Cameroun • 2024</div>
+                </div>
+                <div class="movie-duration">14 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">20:27</span>
+                    <div class="movie-title">When the Rain Forget</div>
+                    <div class="movie-meta">Réalisé par Aganfor Sperandio • Cameroun • 2025</div>
+                </div>
+                <div class="movie-duration">9 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">20:36</span>
+                    <div class="movie-title">En Attendant la Lune</div>
+                    <div class="movie-meta">Réalisé par Freddy Zakaara • Cameroun • 2026</div>
+                </div>
+                <div class="movie-duration">11 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">20:47</span>
+                    <div class="movie-title">Et l'Ombre Demeure</div>
+                    <div class="movie-meta">Réalisé par Abdelali Mehdi • Maroc • 2025</div>
+                </div>
+                <div class="movie-duration">7 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">20:54</span>
+                    <div class="movie-title">Anima</div>
+                    <div class="movie-meta">Réalisé par Boubacar Ibrahim El Mamy • Mauritanie • 2025</div>
+                </div>
+                <div class="movie-duration">13 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">21:07</span>
+                    <div class="movie-title">Maintenant ou Jamais Papi</div>
+                    <div class="movie-meta">Réalisé par Jérôme Nabonsewend Yameogo • Burkina-Faso • 2022</div>
+                </div>
+                <div class="movie-duration">7 min</div>
+            </div>
+            
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">21:14</span>
+                    <div class="movie-title">Help My Mummy</div>
+                    <div class="movie-meta">Réalisé par Diane Gakpo • Benin • 2024</div>
+                </div>
+                <div class="movie-duration">7 min</div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Logique de filtrage dynamique
+        const buttons = document.querySelectorAll('.filter-btn');
+        const sections = document.querySelectorAll('.schedule-section');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Retirer la classe active de tous les boutons
+                buttons.forEach(btn => btn.classList.remove('active'));
+                // Ajouter la classe active au bouton cliqué
+                button.classList.add('active');
+
+                const target = button.getAttribute('data-target');
+
+                sections.forEach(section => {
+                    if (target === 'all') {
+                        section.classList.add('active');
+                    } else {
+                        if (section.id === target) {
+                            section.classList.add('active');
+                        } else {
+                            section.classList.remove('active');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
