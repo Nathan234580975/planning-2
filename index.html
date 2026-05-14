@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révélation Jeunes Talents Camerounais - Programme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #d4af37; /* Or cinéma */
+            --bg-dark: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-main: #f5f5f5;
+            --text-muted: #aaaaaa;
+            --accent-color: #8b0000; /* Rouge profond pour les soirées spéciales */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            background-image: radial-gradient(circle at 50% 0%, #2a2a2a 0%, #0a0a0a 70%);
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 2rem 1.5rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .logo-container {
+            margin-bottom: 1rem;
+        }
+
+        .logo-img {
+            max-width: 120px;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            font-weight: 300;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* Navigation par jours */
+        .day-nav {
+            display: flex;
+            justify-content: center;
+            background-color: #111;
+            border-bottom: 2px solid #222;
+            padding: 0 1rem;
+        }
+
+        .day-tab {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            padding: 1.2rem 2rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .day-tab:hover {
+            color: var(--text-main);
+        }
+
+        .day-tab.active {
+            color: var(--primary-color);
+        }
+
+        .day-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+            box-shadow: 0 -2px 10px rgba(212, 175, 55, 0.5);
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 2rem auto 0;
+            padding: 0 2rem 4rem;
+        }
+
+        .day-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .day-content.active {
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin: 2.5rem 0 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .special-event-title {
+            font-family: 'Cinzel', serif;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin: 2rem 0 1rem;
+            text-align: center;
+            letter-spacing: 1px;
+            border-bottom: 1px dashed #444;
+            padding-bottom: 0.5rem;
+        }
+
+        .movie-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #333;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .movie-card.special {
+            border-color: rgba(212, 175, 55, 0.3);
+            background: linear-gradient(90deg, #1a1a1a 0%, #221c0b 100%);
+        }
+        
+        .movie-card.award {
+            border-color: var(--primary-color);
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+        }
+
+        .movie-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .movie-card:hover {
+            transform: translateX(5px);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+
+        .movie-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .movie-info {
+            flex: 1;
+        }
+
+        .movie-time {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+            display: block;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        .movie-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+        }
+
+        .movie-meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .movie-duration {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            margin-left: 1rem;
+            font-weight: 600;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .movie-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .movie-duration {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+            h1 { font-size: 1.8rem; }
+            .day-tab { padding: 1rem; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="./WhatsApp Image 2026-05-09 at 10.42.25.jpeg" alt="Logo Révélation Jeunes Talents" class="logo-img">
+        </div>
+        <h1>Douala International Film Festival</h1>
+        <h2>Programme Officiel de Projection</h2>
+    </header>
+
+    <div class="day-nav">
+        <button class="day-tab" data-day="jeudi">Jeudi</button>
+        <button class="day-tab" data-day="vendredi">Vendredi</button>
+        <button class="day-tab active" data-day="samedi">Samedi</button>
+    </div>
+
+    <main>
+        <div class="day-content" id="jeudi">
+            <h3 class="section-title">📍 Cinéma Eden | À partir de 10h00</h3>
+            <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.9rem;">
+                *Les horaires incluent une pause de 2 minutes entre chaque projection.
+            </p>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">10:00 - 11:40</span>
+                    <div class="movie-title">Queen of Sabbath</div>
+                    <div class="movie-meta">Bobga Serge • Cameroun • 2025</div>
+                </div>
+                <div class="movie-duration">100 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">11:42 - 12:00</span>
+                    <div class="movie-title">Le Chasseur (Chasseur de rats...)</div>
+                    <div class="movie-meta">Samad Amoussa • Benin • 2024</div>
+                </div>
+                <div class="movie-duration">18 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">12:02 - 13:42</span>
+                    <div class="movie-title">Respire Profondément</div>
+                    <div class="movie-meta">Astrid Siwsankes • France • 2025</div>
+                </div>
+                <div class="movie-duration">100 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">13:44 - 15:02</span>
+                    <div class="movie-title">La Destinée d'une Camionneuse</div>
+                    <div class="movie-meta">Kousse Issouf • Burkina-Faso • 2023</div>
+                </div>
+                <div class="movie-duration">78 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">15:04 - 16:09</span>
+                    <div class="movie-title">112</div>
+                    <div class="movie-meta">Joel Tchedre • Togo • 2024</div>
+                </div>
+                <div class="movie-duration">65 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">16:11 - 17:08</span>
+                    <div class="movie-title">Un</div>
+                    <div class="movie-meta">Nabe Daone • Cameroun • 2024</div>
+                </div>
+                <div class="movie-duration">57 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">17:10 - 18:10</span>
+                    <div class="movie-title">Love d'Été</div>
+                    <div class="movie-meta">Amos Zadi • Côte d'Ivoire • 2026</div>
+                </div>
+                <div class="movie-duration">60 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">18:12 - 18:19</span>
+                    <div class="movie-title">Maintenant ou Jamais Papi</div>
+                    <div class="movie-meta">Jérôme Nabonsewend Yameogo • Burkina-Faso • 2022</div>
+                </div>
+                <div class="movie-duration">7 min</div>
+            </div>
+
+            <h3 class="section-title" style="margin-top: 4rem;">📍 Maison de la Culture, Bali | À partir de 18h00</h3>
+            
+            <div class="movie-card special">
+                <div class="movie-info">
+                    <span class="movie-time">18:00 - 19:18</span>
+                    <div class="movie-title">Vestige du Passé</div>
+                    <div class="movie-meta">Fara Konate • Sénégal • 2026</div>
+                </div>
+                <div class="movie-duration">78 min</div>
+            </div>
+        </div>
+
+        <div class="day-content" id="vendredi">
+            <h3 class="section-title">📍 Cinéma Eden | 10h00 - 15h00</h3>
+            <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.9rem;">
+                *Les horaires incluent une pause de 2 minutes entre chaque projection.
+            </p>
+            
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">10:00 - 10:34</span>
+                    <div class="movie-title">Les Os</div>
+                    <div class="movie-meta">Meric Zongo • Cameroun • 2022</div>
+                </div>
+                <div class="movie-duration">34 min</div>
+            </div>
+            
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">10:36 - 10:56</span>
+                    <div class="movie-title">The Chamber</div>
+                    <div class="movie-meta">Fidae Sbaai • Maroc • 2024</div>
+                </div>
+                <div class="movie-duration">20 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">10:58 - 11:16</span>
+                    <div class="movie-title">Cycle of Pain</div>
+                    <div class="movie-meta">Awonkeh Alfredo Kftiwa • Cameroun • 2025</div>
+                </div>
+                <div class="movie-duration">18 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">11:18 - 11:42</span>
+                    <div class="movie-title">Uriel l'adolescent neurodivergent...</div>
+                    <div class="movie-meta">Etienne Talla • Cameroun • 2026</div>
+                </div>
+                <div class="movie-duration">24 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">11:44 - 12:10</span>
+                    <div class="movie-title">King Bell</div>
+                    <div class="movie-meta">Gabriel Ngassa • Cameroun • 2026</div>
+                </div>
+                <div class="movie-duration">26 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">12:12 - 12:30</span>
+                    <div class="movie-title">Dreaming</div>
+                    <div class="movie-meta">Hossam Waleed • Egypte • 2025</div>
+                </div>
+                <div class="movie-duration">18 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">12:32 - 12:45</span>
+                    <div class="movie-title">Autumn the Age</div>
+                    <div class="movie-meta">Blal Touil • Maroc • 2024</div>
+                </div>
+                <div class="movie-duration">13 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">12:47 - 12:57</span>
+                    <div class="movie-title">Indélébile</div>
+                    <div class="movie-meta">Ruth Silabing • Cameroun • 2024</div>
+                </div>
+                <div class="movie-duration">10 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">12:59 - 13:09</span>
+                    <div class="movie-title">Code Vert</div>
+                    <div class="movie-meta">Tamkou Moifo • Cameroun • 2025</div>
+                </div>
+                <div class="movie-duration">10 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">13:11 - 13:28</span>
+                    <div class="movie-title">À vos mots, mon âme danse</div>
+                    <div class="movie-meta">Parfait Kaboré • Burkina-Faso • 2025</div>
+                </div>
+                <div class="movie-duration">17 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">13:30 - 13:44</span>
+                    <div class="movie-title">Trauma</div>
+                    <div class="movie-meta">Tissala Bienvenue • Cameroun • 2024</div>
+                </div>
+                <div class="movie-duration">14 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">13:46 - 13:58</span>
+                    <div class="movie-title">Curse</div>
+                    <div class="movie-meta">Mourad El Abbari • Maroc • 2026</div>
+                </div>
+                <div class="movie-duration">12 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">14:00 - 14:16</span>
+                    <div class="movie-title">The Unforgiven</div>
+                    <div class="movie-meta">Grace Namondo • Cameroun • 2026</div>
+                </div>
+                <div class="movie-duration">16 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">14:18 - 14:44</span>
+                    <div class="movie-title">Santé et Savoir-Faire Local</div>
+                    <div class="movie-meta">Maloum Tchikilabi • Cameroun • 2026</div>
+                </div>
+                <div class="movie-duration">26 min</div>
+            </div>
+
+            <div class="movie-card" style="border-color: #d4af37;">
+                <div class="movie-info">
+                    <span class="movie-time">14:46 - 14:57</span>
+                    <div class="movie-title">Illusion du Clic</div>
+                    <div class="movie-meta">Tchoffo Sah Arnaud • Cameroun • 2025</div>
+                </div>
+                <div class="movie-duration">11 min</div>
+            </div>
+
+            <h3 class="section-title" style="margin-top: 4rem;">📍 Institut Français de Douala | À partir de 17h13</h3>
+            
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-style: italic;">Avant-programme</p>
+            
+            <div class="movie-card" style="border-left: 4px solid #00a8ff;">
+                <div class="movie-info">
+                    <span class="movie-time">17:13 - 17:28</span>
+                    <div class="movie-title">Munja</div>
+                    <div class="movie-meta">Mpondo Ndoumbe • Cameroun • 2026</div>
+                </div>
+                <div class="movie-duration">15 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">17:30 - 17:44</span>
+                    <div class="movie-title">Anima's Song</div>
+                    <div class="movie-meta">Essam Hayder • Egypte • 2025</div>
+                </div>
+                <div class="movie-duration">14 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">17:46 - 17:55</span>
+                    <div class="movie-title">When the Rain Forget</div>
+                    <div class="movie-meta">Aganfor Sperandio • Cameroun • 2025</div>
+                </div>
+                <div class="movie-duration">9 min</div>
+            </div>
+
+            <div class="special-event-title">✨ Soirée Guadeloupéenne (18h00) ✨</div>
+
+            <div class="movie-card special">
+                <div class="movie-info">
+                    <span class="movie-time">18:00 - 18:26</span>
+                    <div class="movie-title">Ecrire sa Route</div>
+                    <div class="movie-meta">Amalia Escriva • France • 2021</div>
+                </div>
+                <div class="movie-duration">26 min</div>
+            </div>
+
+            <div class="movie-card special">
+                <div class="movie-info">
+                    <span class="movie-time">18:28 - 18:58</span>
+                    <div class="movie-title">Lapochapé</div>
+                    <div class="movie-meta">Mellissandre Monatus • France • 2024</div>
+                </div>
+                <div class="movie-duration">30 min</div>
+            </div>
+
+            <div class="movie-card special">
+                <div class="movie-info">
+                    <span class="movie-time">19:00 - 19:22</span>
+                    <div class="movie-title">Sans Banc Fixe</div>
+                    <div class="movie-meta">Galiam Bruno Henry • France • 2025</div>
+                </div>
+                <div class="movie-duration">22 min</div>
+            </div>
+
+            <div class="movie-card special">
+                <div class="movie-info">
+                    <span class="movie-time">19:24 - 19:48</span>
+                    <div class="movie-title">Ankraj</div>
+                    <div class="movie-meta">Maryse Isimat-Mirin • France • 2025</div>
+                </div>
+                <div class="movie-duration">24 min</div>
+            </div>
+        </div>
+
+        <div class="day-content active" id="samedi">
+            
+            <h3 class="section-title">📍 Institut Français de Douala | Matinée</h3>
+            
+            <div class="movie-card special">
+                <div class="movie-info">
+                    <span class="movie-time">11:00 - 13:00</span>
+                    <div class="movie-title">Rencontre Professionnelle</div>
+                    <div class="movie-meta">Échanges entre Porteurs de Projets et Producteurs</div>
+                </div>
+                <div class="movie-duration">Réseautage</div>
+            </div>
+
+            <h3 class="section-title" style="margin-top: 3rem;">📍 Cinéma Eden | À partir de 10h00</h3>
+            <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.9rem;">
+                *Les horaires incluent une pause de 2 minutes entre chaque projection.
+            </p>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">10:00 - 11:25</span>
+                    <div class="movie-title">Mani</div>
+                    <div class="movie-meta">Guy Djomo • Cameroun • 2025</div>
+                </div>
+                <div class="movie-duration">85 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">11:27 - 12:19</span>
+                    <div class="movie-title">Le Mythe de Mapout</div>
+                    <div class="movie-meta">Mbog-len Mapout • Cameroun • 2014</div>
+                </div>
+                <div class="movie-duration">52 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">12:21 - 13:36</span>
+                    <div class="movie-title">Silent Scars</div>
+                    <div class="movie-meta">Bran Noel • Cameroun • 2026</div>
+                </div>
+                <div class="movie-duration">75 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">13:38 - 14:40</span>
+                    <div class="movie-title">Golden Spoon</div>
+                    <div class="movie-meta">Egbe Francis • Cameroun • 2025</div>
+                </div>
+                <div class="movie-duration">62 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">14:42 - 16:19</span>
+                    <div class="movie-title">Mort Blanche</div>
+                    <div class="movie-meta">Dzivo Leo • Cameroun • 2026</div>
+                </div>
+                <div class="movie-duration">97 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">16:21 - 17:24</span>
+                    <div class="movie-title">At All Cost</div>
+                    <div class="movie-meta">Tee Nellz • Cameroun • 2026</div>
+                </div>
+                <div class="movie-duration">63 min</div>
+            </div>
+
+            <div class="movie-card">
+                <div class="movie-info">
+                    <span class="movie-time">17:26 - 18:41</span>
+                    <div class="movie-title">Malimba</div>
+                    <div class="movie-meta">Carine noubissi • Cameroun • 2025</div>
+                </div>
+                <div class="movie-duration">75 min</div>
+            </div>
+
+            <div class="special-event-title" style="margin-top: 3rem;">✨ Cérémonie de Clôture & Awards ✨</div>
+
+            <div class="movie-card special">
+                <div class="movie-info">
+                    <span class="movie-time">18:45 - 20:43</span>
+                    <div class="movie-title">Nome</div>
+                    <div class="movie-meta">Sana Na N'hada • Guinée • 2024</div>
+                </div>
+                <div class="movie-duration">118 min</div>
+            </div>
+
+            <div class="movie-card special">
+                <div class="movie-info">
+                    <span class="movie-time">20:45 - 20:58</span>
+                    <div class="movie-title">Ayo</div>
+                    <div class="movie-meta">Nadine Ngono • Cameroun • 2024</div>
+                </div>
+                <div class="movie-duration">13 min</div>
+            </div>
+
+            <div class="movie-card award" style="margin-top: 1.5rem;">
+                <div class="movie-info">
+                    <span class="movie-time">21:00 - 21:30</span>
+                    <div class="movie-title">🏆 Remise du Camaroes Award</div>
+                    <div class="movie-meta">Célébration des lauréats du festival</div>
+                </div>
+                <div class="movie-duration">30 min</div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        // Logique de changement d'onglets pour les jours
+        const dayTabs = document.querySelectorAll('.day-tab');
+        const dayContents = document.querySelectorAll('.day-content');
+
+        dayTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Retirer la classe active de tous les onglets et contenus
+                dayTabs.forEach(t => t.classList.remove('active'));
+                dayContents.forEach(c => c.classList.remove('active'));
+
+                // Activer l'onglet cliqué et son contenu
+                tab.classList.add('active');
+                const targetId = tab.getAttribute('data-day');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
