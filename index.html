@@ -226,6 +226,49 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .pdf-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            padding: 0.7rem 1.6rem;
+            background: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .pdf-btn:hover {
+            background: rgba(212, 175, 55, 0.12);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+        }
+        .pdf-btn svg {
+            flex-shrink: 0;
+        }
+
+        @media print {
+            .day-nav, .pdf-btn, header { display: none !important; }
+            body { background: #fff !important; color: #111 !important; }
+            .day-content { display: none !important; }
+            .day-content.print-active { display: block !important; }
+            .movie-card { border: 1px solid #ccc !important; background: #fff !important; break-inside: avoid; }
+            .movie-time { color: #b8860b !important; }
+            .section-title { color: #111 !important; border-left: 4px solid #b8860b !important; background: none !important; }
+            .movie-title { color: #111 !important; }
+            .movie-meta { color: #555 !important; }
+            .movie-duration { background: #eee !important; color: #333 !important; }
+            main { padding: 0 !important; }
+            .print-header { display: block !important; text-align: center; margin-bottom: 1.5rem; }
+        }
+        .print-header { display: none; }
+
         @media (max-width: 600px) {
             .movie-card {
                 flex-direction: column;
@@ -254,10 +297,16 @@
         <button class="day-tab" data-day="jeudi">Jeudi</button>
         <button class="day-tab active" data-day="vendredi">Vendredi</button>
         <button class="day-tab" data-day="samedi">Samedi</button>
+        <button class="day-tab" data-day="dimanche">Dimanche</button>
     </div>
 
     <main>
         <div class="day-content" id="jeudi">
+            <div class="print-header"><strong>Douala International Film Festival — Programme Jeudi</strong></div>
+            <button class="pdf-btn" onclick="downloadPDF('jeudi', 'Programme Jeudi')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                Télécharger le programme PDF
+            </button>
             <h3 class="section-title">📍 Cinéma Eden | À partir de 10h00</h3>
             <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.9rem;">
                 *Les horaires incluent une pause de 2 minutes entre chaque projection.
@@ -348,6 +397,11 @@
         </div>
 
         <div class="day-content active" id="vendredi">
+            <div class="print-header"><strong>Douala International Film Festival — Programme Vendredi</strong></div>
+            <button class="pdf-btn" onclick="downloadPDF('vendredi', 'Programme Vendredi')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                Télécharger le programme PDF
+            </button>
             <h3 class="section-title">📍 Cinéma Eden | 10h00 - 15h57</h3>
             <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.9rem;">
                 *Les horaires incluent une pause de 2 minutes entre chaque projection.
@@ -509,7 +563,7 @@
             <div class="movie-card" style="border-color: #d4af37;">
                 <div class="movie-info">
                     <span class="movie-time">15:32 - 15:38</span>
-                    <div class="movie-title">Moi L'Étrange</div>
+                    <div class="movie-title">L'Étrange</div>
                     <div class="movie-meta">Nkoke Stephane • Cameroun • 2026</div>
                 </div>
                 <div class="movie-duration">6 min</div>
@@ -549,7 +603,7 @@
             <div class="movie-card">
                 <div class="movie-info">
                     <span class="movie-time">17:45 - 17:59</span>
-                    <div class="movie-title">Amina's Song</div>
+                    <div class="movie-title">Anima's Song</div>
                     <div class="movie-meta">Essam Hayder • Egypte • 2025</div>
                 </div>
                 <div class="movie-duration">14 min</div>
@@ -606,6 +660,11 @@
         </div>
 
         <div class="day-content" id="samedi">
+            <div class="print-header"><strong>Douala International Film Festival — Programme Samedi</strong></div>
+            <button class="pdf-btn" onclick="downloadPDF('samedi', 'Programme Samedi')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                Télécharger le programme PDF
+            </button>
             
             <h3 class="section-title">📍 Institut Français de Douala | Matinée</h3>
             
@@ -717,6 +776,25 @@
 
         </div>
 
+        <div class="day-content" id="dimanche">
+            <div class="print-header"><strong>Douala International Film Festival — Programme Dimanche</strong></div>
+            <button class="pdf-btn" onclick="downloadPDF('dimanche', 'Programme Dimanche')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                Télécharger le programme PDF
+            </button>
+
+            <h3 class="section-title">📍 Institut Français de Douala | Matinée</h3>
+
+            <div class="movie-card special">
+                <div class="movie-info">
+                    <span class="movie-time">08:00 - 10:00</span>
+                    <div class="movie-title">Rencontre Professionnelle</div>
+                    <div class="movie-meta">Échanges entre Porteurs de Projets et Producteurs</div>
+                </div>
+                <div class="movie-duration">Réseautage</div>
+            </div>
+        </div>
+
     </main>
 
     <script>
@@ -736,6 +814,22 @@
                 document.getElementById(targetId).classList.add('active');
             });
         });
+
+        function downloadPDF(dayId, title) {
+            // Marquer le jour ciblé pour l'impression
+            dayContents.forEach(c => c.classList.remove('print-active'));
+            document.getElementById(dayId).classList.add('print-active');
+
+            // Modifier temporairement le titre de la page
+            const originalTitle = document.title;
+            document.title = 'DIFF — ' + title;
+
+            window.print();
+
+            // Restaurer après impression
+            document.title = originalTitle;
+            dayContents.forEach(c => c.classList.remove('print-active'));
+        }
     </script>
 </body>
 </html>
